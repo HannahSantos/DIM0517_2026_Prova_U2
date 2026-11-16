@@ -1,5 +1,7 @@
 name: Go
 
+on: workflow_dispatch
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,3 +19,18 @@ jobs:
 
       - name: Build
         run: go build -o app ./src
+
+      - name: Test
+        run: go run ./src/main_tests.go
+
+  docker_start:
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: go
+      steps:
+        - name: Docker image build
+          run: docker build .
+
+        - name: Doker image run
+          run: docker run IMAGE
