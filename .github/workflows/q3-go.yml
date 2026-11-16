@@ -1,8 +1,14 @@
 name: Go
 
+on:
+    pull-request:
+      types:
+        - closed
+      branch: [dev]
 
 jobs:
-  build:
+  if_merged_build:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -19,3 +25,6 @@ jobs:
       - name: Build
         run: go build -o app ./src
 
+      - name: Tagging if successful
+        if: success()
+        run: TAG="build-${{ github.run_id }}" git tag -d TAG
