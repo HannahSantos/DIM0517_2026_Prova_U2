@@ -27,4 +27,5 @@ jobs:
 
       - name: Tagging if successful
         if: success()
-        run: TAG="build-${{ github.run_id }}" git tag -d TAG
+        run: git tag -d $TAG
+        env: TAG="build-${{ github.run_id }}"
