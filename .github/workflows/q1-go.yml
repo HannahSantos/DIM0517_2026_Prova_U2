@@ -1,5 +1,14 @@
 name: Go
 
+on: 
+  push:
+    branches: 
+      - 'feature/**'
+    paths:
+      - '**/src/**'
+      - '**/Dockerfile'
+      - '**.mod'
+
 jobs:
   build:
     runs-on: ubuntu-latest
